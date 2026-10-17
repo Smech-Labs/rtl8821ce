@@ -1256,7 +1256,7 @@ halmac_init_mac_cfg_88xx(
 /**
  * halmac_cfg_operation_mode_88xx() - config operation mode
  * @pHalmac_adapter : the adapter of halmac
- * @wireless_mode : 802.11 standard(b/g/n/ac¡K)
+ * @wireless_mode : 802.11 standard(b/g/n/acÂ¡K)
  * Author : KaiYuan Chang/Ivan Lin
  * Return : HALMAC_RET_STATUS
  * More details of status code can be found in prototype document

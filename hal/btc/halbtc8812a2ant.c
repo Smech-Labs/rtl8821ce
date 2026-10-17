@@ -2080,7 +2080,7 @@ void halbtc8812a2ant_tdma_duration_adjust(IN struct btc_coexist *btcoexist,
 			if (dn <= 0)
 				dn = 0;
 
-			if (up >= n) {	/* if ³sÄò n ­Ó2¬í retry count¬°0, «h½Õ¼eWiFi duration */
+			if (up >= n) {	/* if Â³sÃ„Ã² n Â­Ã“2Â¬Ã­ retry countÂ¬Â°0, Â«hÂ½Ã•Â¼eWiFi duration */
 				wait_count = 0;
 				n = 3;
 				up = 0;
@@ -2098,13 +2098,13 @@ void halbtc8812a2ant_tdma_duration_adjust(IN struct btc_coexist *btcoexist,
 			if (up <= 0)
 				up = 0;
 
-			if (dn == 2) {	/* if ³sÄò 2 ­Ó2¬í retry count< 3, «h½Õ¯¶WiFi duration */
+			if (dn == 2) {	/* if Â³sÃ„Ã² 2 Â­Ã“2Â¬Ã­ retry count< 3, Â«hÂ½Ã•Â¯Â¶WiFi duration */
 				if (wait_count <= 2)
-					m++; /* Á×§K¤@ª½¦b¨â­Ólevel¤¤¨Ó¦^ */
+					m++; /* ÃÃ—Â§KÂ¤@ÂªÂ½Â¦bÂ¨Ã¢Â­Ã“levelÂ¤Â¤Â¨Ã“Â¦^ */
 				else
 					m = 1;
 
-				if (m >= 20)  /* m ³Ì¤j­È = 20 ' ³Ì¤j120¬í recheck¬O§_½Õ¾ã WiFi duration. */
+				if (m >= 20)  /* m Â³ÃŒÂ¤jÂ­Ãˆ = 20 ' Â³ÃŒÂ¤j120Â¬Ã­ recheckÂ¬OÂ§_Â½Ã•Â¾Ã£ WiFi duration. */
 					m = 20;
 
 				n = 3 * m;
@@ -2116,13 +2116,13 @@ void halbtc8812a2ant_tdma_duration_adjust(IN struct btc_coexist *btcoexist,
 					"[BTCoex], Decrease wifi duration for retry_counter<3!!\n");
 				BTC_TRACE(trace_buf);
 			}
-		} else { /* retry count > 3, ¥u­n1¦¸ retry count > 3, «h½Õ¯¶WiFi duration */
+		} else { /* retry count > 3, Â¥uÂ­n1Â¦Â¸ retry count > 3, Â«hÂ½Ã•Â¯Â¶WiFi duration */
 			if (wait_count == 1)
-				m++; /* Á×§K¤@ª½¦b¨â­Ólevel¤¤¨Ó¦^ */
+				m++; /* ÃÃ—Â§KÂ¤@ÂªÂ½Â¦bÂ¨Ã¢Â­Ã“levelÂ¤Â¤Â¨Ã“Â¦^ */
 			else
 				m = 1;
 
-			if (m >= 20)  /* m ³Ì¤j­È = 20 ' ³Ì¤j120¬í recheck¬O§_½Õ¾ã WiFi duration. */
+			if (m >= 20)  /* m Â³ÃŒÂ¤jÂ­Ãˆ = 20 ' Â³ÃŒÂ¤j120Â¬Ã­ recheckÂ¬OÂ§_Â½Ã•Â¾Ã£ WiFi duration. */
 				m = 20;
 
 			n = 3 * m;
@@ -2963,7 +2963,7 @@ void halbtc8812a2ant_tdma_duration_adjust_for_wifi_rssi_low(
 			if (dn <= 0)
 				dn = 0;
 
-			if (up >= n) {	/* if ³sÄò n ­Ó2¬í retry count¬°0, «h½Õ¼eWiFi duration */
+			if (up >= n) {	/* if Â³sÃ„Ã² n Â­Ã“2Â¬Ã­ retry countÂ¬Â°0, Â«hÂ½Ã•Â¼eWiFi duration */
 				wait_count = 0;
 				n = 3;
 				up = 0;
@@ -2981,13 +2981,13 @@ void halbtc8812a2ant_tdma_duration_adjust_for_wifi_rssi_low(
 			if (up <= 0)
 				up = 0;
 
-			if (dn == 2) {	/* if ³sÄò 2 ­Ó2¬í retry count< 3, «h½Õ¯¶WiFi duration */
+			if (dn == 2) {	/* if Â³sÃ„Ã² 2 Â­Ã“2Â¬Ã­ retry count< 3, Â«hÂ½Ã•Â¯Â¶WiFi duration */
 				if (wait_count <= 2)
-					m++; /* Á×§K¤@ª½¦b¨â­Ólevel¤¤¨Ó¦^ */
+					m++; /* ÃÃ—Â§KÂ¤@ÂªÂ½Â¦bÂ¨Ã¢Â­Ã“levelÂ¤Â¤Â¨Ã“Â¦^ */
 				else
 					m = 1;
 
-				if (m >= 20)  /* m ³Ì¤j­È = 20 ' ³Ì¤j120¬í recheck¬O§_½Õ¾ã WiFi duration. */
+				if (m >= 20)  /* m Â³ÃŒÂ¤jÂ­Ãˆ = 20 ' Â³ÃŒÂ¤j120Â¬Ã­ recheckÂ¬OÂ§_Â½Ã•Â¾Ã£ WiFi duration. */
 					m = 20;
 
 				n = 3 * m;
@@ -2999,13 +2999,13 @@ void halbtc8812a2ant_tdma_duration_adjust_for_wifi_rssi_low(
 					"[BTCoex], Decrease wifi duration for retry_counter<3!!\n");
 				BTC_TRACE(trace_buf);
 			}
-		} else { /* retry count > 3, ¥u­n1¦¸ retry count > 3, «h½Õ¯¶WiFi duration */
+		} else { /* retry count > 3, Â¥uÂ­n1Â¦Â¸ retry count > 3, Â«hÂ½Ã•Â¯Â¶WiFi duration */
 			if (wait_count == 1)
-				m++; /* Á×§K¤@ª½¦b¨â­Ólevel¤¤¨Ó¦^ */
+				m++; /* ÃÃ—Â§KÂ¤@ÂªÂ½Â¦bÂ¨Ã¢Â­Ã“levelÂ¤Â¤Â¨Ã“Â¦^ */
 			else
 				m = 1;
 
-			if (m >= 20)  /* m ³Ì¤j­È = 20 ' ³Ì¤j120¬í recheck¬O§_½Õ¾ã WiFi duration. */
+			if (m >= 20)  /* m Â³ÃŒÂ¤jÂ­Ãˆ = 20 ' Â³ÃŒÂ¤j120Â¬Ã­ recheckÂ¬OÂ§_Â½Ã•Â¾Ã£ WiFi duration. */
 				m = 20;
 
 			n = 3 * m;

@@ -50,21 +50,21 @@
 	3		2G_FCC1		5G_NULL		22h		US 2G			NA
 	4		2G_MKK1		5G_NULL		23h		Japan 2G		NA
 	5		2G_ETSI2	5G_NULL		24h		France 2G		NA
-	6		2G_FCC1		5G_FCC1		25h		US 2G			US 5G					�K�j��{��
-	7		2G_WORLD	5G_ETSI1	26h		Worldwird 13	Europe					�K�j��{��
-	8		2G_MKK1		5G_MKK1		27h		Japan 2G		Japan 5G				�K�j��{��
-	9		2G_WORLD	5G_KCC1		28h		Worldwird 13	Korea					�K�j��{��
+	6		2G_FCC1		5G_FCC1		25h		US 2G			US 5G					¤K¤j°ê»{ÃÒ
+	7		2G_WORLD	5G_ETSI1	26h		Worldwird 13	Europe					¤K¤j°ê»{ÃÒ
+	8		2G_MKK1		5G_MKK1		27h		Japan 2G		Japan 5G				¤K¤j°ê»{ÃÒ
+	9		2G_WORLD	5G_KCC1		28h		Worldwird 13	Korea					¤K¤j°ê»{ÃÒ
 	10		2G_WORLD	5G_FCC2		29h		Worldwird 13	US o/w DFS Channels
 	11		2G_WORLD	5G_FCC3		30h		Worldwird 13	India, Mexico
 	12		2G_WORLD	5G_FCC4		31h		Worldwird 13	Venezuela
 	13		2G_WORLD	5G_FCC5		32h		Worldwird 13	China
 	14		2G_WORLD	5G_FCC6		33h		Worldwird 13	Israel
-	15		2G_FCC1		5G_FCC7		34h		US 2G			US/Canada				�K�j��{��
-	16		2G_WORLD	5G_ETSI2	35h		Worldwird 13	Australia, New Zealand	�K�j��{��
+	15		2G_FCC1		5G_FCC7		34h		US 2G			US/Canada				¤K¤j°ê»{ÃÒ
+	16		2G_WORLD	5G_ETSI2	35h		Worldwird 13	Australia, New Zealand	¤K¤j°ê»{ÃÒ
 	17		2G_WORLD	5G_ETSI3	36h		Worldwird 13	Russia
 	18		2G_MKK1		5G_MKK2		37h		Japan 2G		Japan (W52, W53)
 	19		2G_MKK1		5G_MKK3		38h		Japan 2G		Japan (W56)
-	20		2G_FCC1		5G_NCC1		39h		US 2G			Taiwan					�K�j��{��
+	20		2G_FCC1		5G_NCC1		39h		US 2G			Taiwan					¤K¤j°ê»{ÃÒ
 
 	NA		2G_WORLD	5G_FCC1		7F		FCC	FCC DFS Channels	Realtek Define
 
@@ -229,10 +229,10 @@
 	173	5865	P	P	P			P
 	177	5885	P	P				P
 channel count			28	28	14	7	0	28	24	20	24	19	5	13	8	19	20	22	15	12
-			E: FCC accepted the ask for CH144 from Accord.					PS: 160MHz �� 80MHz+80MHz��{�H			Argentina	Belgium (��Q��)		India	Israel			Russia
-			P: Customer's requirement from James.								Australia	The Netherlands (����)		Mexico	Turkey			Ukraine
-											New Zealand	UK (�^��)		Singapore
-											Brazil	Switzerland (��h)
+			E: FCC accepted the ask for CH144 from Accord.					PS: 160MHz ¥Î 80MHz+80MHz¹ê²{¡H			Argentina	Belgium (¤ñ§Q®É)		India	Israel			Russia
+			P: Customer's requirement from James.								Australia	The Netherlands (²üÄõ)		Mexico	Turkey			Ukraine
+											New Zealand	UK (­^°ê)		Singapore
+											Brazil	Switzerland (·ç¤h)
 
 
 */
@@ -377,7 +377,7 @@ RT_DOMAIN_23 = {{{01, 13, 20}, {36, 48, 23}, {52, 64, 23}, {100, 140, 30}, {149,
 struct _RT_CHANNEL_PLAN_COUNTRY_TRANSFER_TABLE	rt_ctry_chnl_tbl[] = {
 
 	{
-		RT_CTRY_AL,							/*	"Albania�����ڥ���" */
+		RT_CTRY_AL,							/*	"Albaniaªüº¸¤Ú¥§¨È" */
 		"AL",
 		RT_2G_WORLD,
 		RT_5G_WORLD,
@@ -385,7 +385,7 @@ struct _RT_CHANNEL_PLAN_COUNTRY_TRANSFER_TABLE	rt_ctry_chnl_tbl[] = {
 	},
 #if 0
 	{
-		RT_CTRY_BB,							/* "Barbados�ڤڦh��" */
+		RT_CTRY_BB,							/* "Barbados¤Ú¤Ú¦h´µ" */
 		"BB",
 		RT_2G_WORLD,
 		RT_5G_NULL,
@@ -393,7 +393,7 @@ struct _RT_CHANNEL_PLAN_COUNTRY_TRANSFER_TABLE	rt_ctry_chnl_tbl[] = {
 	},
 
 	{
-		RT_CTRY_DE,							/* "Germany�w��" */
+		RT_CTRY_DE,							/* "Germany¼w°ê" */
 		"DE",
 		RT_2G_WORLD,
 		RT_5G_ETSI1,
@@ -401,7 +401,7 @@ struct _RT_CHANNEL_PLAN_COUNTRY_TRANSFER_TABLE	rt_ctry_chnl_tbl[] = {
 	},
 
 	{
-		RT_CTRY_US,							/* "Germany�w��" */
+		RT_CTRY_US,							/* "Germany¼w°ê" */
 		"US",
 		RT_2G_FCC1,
 		RT_5G_FCC7,
@@ -409,7 +409,7 @@ struct _RT_CHANNEL_PLAN_COUNTRY_TRANSFER_TABLE	rt_ctry_chnl_tbl[] = {
 	},
 
 	{
-		RT_CTRY_JP,							/* "Germany�w��" */
+		RT_CTRY_JP,							/* "Germany¼w°ê" */
 		"JP",
 		RT_2G_MKK1,
 		RT_5G_MKK1,
@@ -417,7 +417,7 @@ struct _RT_CHANNEL_PLAN_COUNTRY_TRANSFER_TABLE	rt_ctry_chnl_tbl[] = {
 	},
 
 	{
-		RT_CTRY_TW,							/* "Germany�w��" */
+		RT_CTRY_TW,							/* "Germany¼w°ê" */
 		"TW",
 		RT_2G_FCC1,
 		RT_5G_NCC1,

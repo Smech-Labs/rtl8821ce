@@ -668,7 +668,7 @@ _iqk_configure_macbb_8821c(
 	odm_set_bb_reg(p_dm_odm, 0x550, BIT(11) | BIT(3), 0x0);
 	odm_set_bb_reg(p_dm_odm, 0x90c, BIT(15), 0x1);			/*0x90c[15]=1: dac_buf reset selection*/
 	odm_set_bb_reg(p_dm_odm, 0x9a4, BIT(31), 0x0);         /*0x9a4[31]=0: Select da clock*/
-	/*0xc94[0]=1, 0xe94[0]=1: Åýtx±qiqk¥´¥X¨Ó*/
+	/*0xc94[0]=1, 0xe94[0]=1: Ã…Ã½txÂ±qiqkÂ¥Â´Â¥XÂ¨Ã“*/
 	odm_set_bb_reg(p_dm_odm, 0xc94, BIT(0), 0x1);
 	/* 3-wire off*/
 	odm_write_4byte(p_dm_odm, 0xc00, 0x00000004);
