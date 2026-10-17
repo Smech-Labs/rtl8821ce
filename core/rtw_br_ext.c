@@ -89,7 +89,11 @@ static __inline__ unsigned char *__nat25_find_pppoe_tag(struct pppoe_hdr *ph, un
 	unsigned char *cur_ptr, *start_ptr;
 	unsigned short tagLen, tagType;
 
-	start_ptr = cur_ptr = (unsigned char *)ph->tag;
+	/* ph->tag is guarded by #ifndef __KERNEL__ in uapi/linux/if_pppox.h,
+	 * same removed-from-kernel-module-view issue as pppoe_tag's tag_data
+	 * elsewhere in this file -- the tag data immediately follows the
+	 * fixed-size pppoe_hdr header regardless. */
+	start_ptr = cur_ptr = (unsigned char *)ph + sizeof(struct pppoe_hdr);
 	while ((cur_ptr - start_ptr) < ntohs(ph->length)) {
 		/* prevent un-alignment access */
 		tagType = (unsigned short)((cur_ptr[0] << 8) + cur_ptr[1]);
@@ -115,9 +119,10 @@ static __inline__ int __nat25_add_pppoe_tag(struct sk_buff *skb, struct pppoe_ta
 
 	skb_put(skb, data_len);
 	/* have a room for new tag */
-	memmove(((unsigned char *)ph->tag + data_len), (unsigned char *)ph->tag, ntohs(ph->length));
+	memmove(((unsigned char *)ph + sizeof(struct pppoe_hdr) + data_len),
+		(unsigned char *)ph + sizeof(struct pppoe_hdr), ntohs(ph->length));
 	ph->length = htons(ntohs(ph->length) + data_len);
-	memcpy((unsigned char *)ph->tag, tag, data_len);
+	memcpy((unsigned char *)ph + sizeof(struct pppoe_hdr), tag, data_len);
 	return data_len;
 }
 
@@ -1023,11 +1028,14 @@ int nat25_db_handle(_adapter *priv, struct sk_buff *skb, int method)
 		#endif
 
 		/*   AARP  */
+		/* struct elapaarp/struct ddpehdr (AppleTalk AARP/DDP) were removed
+		 * from the kernel entirely (not just renamed, same way struct
+		 * ipxhdr above already needed its own guard) -- this dead-protocol
+		 * NAT25 bridge path is disabled on modern kernels the same way
+		 * IPX already is above, rather than reimplementing removed
+		 * AppleTalk-era structs no system actually speaks anymore. */
 	#if (LINUX_VERSION_CODE < KERNEL_VERSION(5, 15, 0))
 		else if (ea != NULL) {
-	#else
-		if (ea != NULL) {
-	#endif
 
 			/* Sanity check fields. */
 			if (ea->hw_len != ETH_ALEN || ea->pa_len != AARP_PA_ALEN) {
@@ -1116,6 +1124,7 @@ int nat25_db_handle(_adapter *priv, struct sk_buff *skb, int method)
 				return -1;
 			}
 		}
+	#endif
 
 		return -1;
 	}
@@ -1151,8 +1160,8 @@ int nat25_db_handle(_adapter *priv, struct sk_buff *skb, int method)
 								return -1;
 							}
 
-							memcpy(tag->tag_data + MAGIC_CODE_LEN + RTL_RELAY_TAG_LEN,
-							       pOldTag->tag_data, old_tag_len);
+							memcpy((unsigned char *)tag + TAG_HDR_LEN + MAGIC_CODE_LEN + RTL_RELAY_TAG_LEN,
+							       (unsigned char *)pOldTag + TAG_HDR_LEN, old_tag_len);
 
 							if (skb_pull_and_merge(skb, (unsigned char *)pOldTag, TAG_HDR_LEN + old_tag_len) < 0) {
 								DEBUG_ERR("call skb_pull_and_merge() failed in PADI/R packet!\n");
@@ -1165,9 +1174,9 @@ int nat25_db_handle(_adapter *priv, struct sk_buff *skb, int method)
 						tag->tag_len = htons(MAGIC_CODE_LEN + RTL_RELAY_TAG_LEN + old_tag_len);
 
 						/* insert the magic_code+client mac in relay tag */
-						pMagic = (unsigned short *)tag->tag_data;
+						pMagic = (unsigned short *)((unsigned char *)tag + TAG_HDR_LEN);
 						*pMagic = htons(MAGIC_CODE);
-						memcpy(tag->tag_data + MAGIC_CODE_LEN, skb->data + ETH_ALEN, ETH_ALEN);
+						memcpy((unsigned char *)tag + TAG_HDR_LEN + MAGIC_CODE_LEN, skb->data + ETH_ALEN, ETH_ALEN);
 
 						/* Add relay tag */
 						if (__nat25_add_pppoe_tag(skb, tag) < 0)
@@ -1228,14 +1237,19 @@ int nat25_db_handle(_adapter *priv, struct sk_buff *skb, int method)
 						return -1;
 					}
 
-					pMagic = (unsigned short *)tag->tag_data;
+					/* tag_data isn't visible to kernel-module code (it's
+					 * guarded by #ifndef __KERNEL__ in uapi/linux/if_pppox.h
+					 * -- the data still immediately follows the 4-byte
+					 * {tag_type,tag_len} header, same as TAG_HDR_LEN is
+					 * used elsewhere in this file). */
+					pMagic = (unsigned short *)((unsigned char *)tag + TAG_HDR_LEN);
 					if (ntohs(*pMagic) != MAGIC_CODE) {
 						DEBUG_ERR("Can't find MAGIC_CODE in %s packet!\n",
 							(ph->code == PADO_CODE ? "PADO" : "PADS"));
 						return -1;
 					}
 
-					memcpy(skb->data, tag->tag_data + MAGIC_CODE_LEN, ETH_ALEN);
+					memcpy(skb->data, (unsigned char *)tag + TAG_HDR_LEN + MAGIC_CODE_LEN, ETH_ALEN);
 
 					if (tagLen > MAGIC_CODE_LEN + RTL_RELAY_TAG_LEN)
 						offset = TAG_HDR_LEN;

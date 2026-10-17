@@ -1463,8 +1463,10 @@ int rtw_ndev_init(struct net_device *dev)
 
 	RTW_PRINT(FUNC_ADPT_FMT" if%d mac_addr="MAC_FMT"\n"
 		, FUNC_ADPT_ARG(adapter), (adapter->iface_id + 1), MAC_ARG(dev->dev_addr));
-	strncpy(adapter->old_ifname, dev->name, IFNAMSIZ);
-	adapter->old_ifname[IFNAMSIZ - 1] = '\0';
+	/* strncpy() was removed from the kernel entirely; strscpy() always
+	 * NUL-terminates, so the old manual fix-up line below is no longer
+	 * needed. */
+	strscpy(adapter->old_ifname, dev->name, IFNAMSIZ);
 	rtw_adapter_proc_init(dev);
 
 	return 0;

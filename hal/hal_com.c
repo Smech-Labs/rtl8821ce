@@ -12207,7 +12207,8 @@ ParseQualifiedString(
 		return _FALSE;
 
 	j = (*Start) - 2;
-	strncpy((char *)Out, (const char *)(In + i), j - i + 1);
+	/* exact-length substring copy, never NUL-terminated by the original strncpy() either; strscpy() would truncate the last byte */
+	memcpy((char *)Out, (const char *)(In + i), j - i + 1);
 
 	return _TRUE;
 }
