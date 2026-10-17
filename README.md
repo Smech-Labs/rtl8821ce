@@ -1,10 +1,14 @@
-> [!WARNING]
-> After 8 years of maintaining this repository, and 6 years of doing so without the hardware this kernel module supports, I no longer have the time for it. I'm sure someone in the community will fork it and take up the mantle. See you around!
+> [!NOTE]
+> This is a maintained fork. Upstream ([tomaspinho/rtl8821ce](https://github.com/tomaspinho/rtl8821ce)) was archived by its maintainer after 8 years with no successor forward, and no longer builds on current kernels. Smech Labs picked it up because the hardware (an RTL8821CE combo Wi-Fi/Bluetooth chip) is actually in use, not just theoretical.
+>
+> What's been fixed so far to get this building again, after ~6 years of kernel-API drift: `struct pppoe_tag`/`pppoe_hdr` member access hidden behind `__KERNEL__` guards, fully-removed AppleTalk structs, the removal of `strncpy()` from the kernel's string API, and the `cfg80211_ops` migration from `struct net_device *` to `struct wireless_dev *` across several callbacks. See the [commit history](https://github.com/Smech-Labs/rtl8821ce/commits/master) for specifics.
 
 # Realtek RTL8821CE Driver
 
 ## Intent
-This repository hosts the code for the [Arch Linux AUR Package](https://aur.archlinux.org/packages/rtl8821ce-dkms-git/). It's targeting Linux > 4.14 and is being developed for Arch Linux and Ubuntu 18.10. No support will be provided for other Linux distributions or Linux Kernel versions outside of that range.
+This fork targets **current kernels** — the `cfg80211_ops` fixes above assume the `wireless_dev`-based callback signatures and aren't version-gated back to older kernels the way some of the surrounding code still is. If you're on an LTS kernel from the pre-`wdev` era, upstream's last release (or the Ubuntu `rtl8821ce-dkms` package, see below) may serve you better. Validated by Smech Labs against Fedora on a recent 7.x kernel; distro-general install mechanics below (Arch, Debian/Ubuntu, Gentoo, NixOS) are otherwise unchanged from upstream.
+
+The CI workflow and `Dockerfile` in this repo are inherited from upstream and still pin an old kernel (5.18) — they haven't been updated to reflect the above yet and may not currently pass. Treat them as stale until someone gets to them.
 
 ## Disclaimer
 The maintainers of this repository are not Realtek employees and are maintaining this repository for their own usage. Further feature development (such as proper power saving, etc.) will not be pursued here, but will be gladly integrated if newer driver sources are provided by Realtek. Use at your own risk.
@@ -69,7 +73,7 @@ sudo ./dkms-install.sh
 Open a terminal window and git clone the repository to your local disk
 
 ```
-git clone https://github.com/tomaspinho/rtl8821ce.git
+git clone https://github.com/Smech-Labs/rtl8821ce.git
 cd rtl8821ce
 ```
 
