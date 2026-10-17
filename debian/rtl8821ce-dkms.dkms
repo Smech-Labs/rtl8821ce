@@ -1,0 +1,25 @@
+PACKAGE_NAME="rtl8821ce"
+PACKAGE_VERSION="#MODULE_VERSION#"
+BUILT_MODULE_NAME[0]="8821ce"
+DEST_MODULE_LOCATION[0]="/updates/dkms"
+MODULES_CONF[0]="blacklist rtw88_8821ce"
+MODULES_CONF[1]="blacklist rtw88_8821c"
+MODULES_CONF[2]="blacklist rtw88_pci"
+AUTOINSTALL="YES"
+
+num_cpu_cores()
+{
+  if [ -x /usr/bin/nproc ]; then
+    nproc
+  else
+    echo "1"
+  fi
+}
+
+MAKE="'make' -j$(num_cpu_cores) KVER=$kernelver"
+CLEAN="'make' clean"
+
+# Only validated so far against the kernel this fork was built and tested
+# on (7.2.11). Not restricting BUILD_EXCLUSIVE_KERNEL to that one version
+# the way Ubuntu's packaging pins to 5.15 -- this hasn't been disproven on
+# other kernels, just not yet tried. Revisit once more kernels are tested.

@@ -1,0 +1,3 @@
+version=4
+# Upstream (tomaspinho/rtl8821ce) is archived with no release tags, and
+# this is itself the maintained fork. Nothing meaningful for uscan to watch.

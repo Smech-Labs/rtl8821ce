@@ -1,0 +1,57 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: rtl8821ce
+Upstream-Contact: Smech <smechlabs@proton.me>
+Source: https://github.com/Smech-Labs/rtl8821ce
+Comment:
+ Forked from https://github.com/tomaspinho/rtl8821ce, archived by its
+ maintainer in 2026 with no successor, and patched to build against
+ current kernels (cfg80211 wireless_dev-based ops, strncpy() removal,
+ removed AppleTalk structs). Those patches are plain GPL-2 source and
+ carried in the same files as the rest of the driver below.
+ .
+ This package is placed in non-free-firmware, not main, because of the
+ two files called out below: they compile in opaque Realtek firmware
+ microcode as C byte arrays (not loadable blobs fetched at runtime via
+ request_firmware(), which is how most Realtek firmware is split out
+ into the separate firmware-realtek package in main's reach). A GPL
+ header on a byte array is not the same as having a preferred form for
+ modification -- there is no human-authored source for that microcode
+ in this repository, upstream's history, or anywhere else checked.
+ Because it's linked directly into the built .ko rather than loaded
+ separately, the built module as a whole has to follow the firmware,
+ even though the surrounding driver source is genuinely free.
+
+Files: *
+Copyright: 2007-2020 Realtek Semiconductor Corp. All rights reserved.
+License: GPL-2
+
+Files: hal/phydm/rtl8821c/halhwimg8821c_fw.c
+ hal/rtl8821c/hal8821c_fw.c
+Copyright: 2007-2011 Realtek Corporation. All rights reserved.
+License: GPL-2
+Comment:
+ These two files carry a GPL-2 header but their actual content is
+ opaque firmware microcode for the 8821C's embedded MCU, expressed as
+ raw C byte arrays (array_mp_8821c_fw_ap[], etc.) rather than anything
+ a human wrote or could meaningfully modify. No corresponding source
+ form is available. This is the reason the package as a whole sits in
+ non-free-firmware instead of main -- see the top-level Comment field.
+
+Files: debian/*
+Copyright: 2026 Smech <smechlabs@proton.me>
+License: GPL-2
+
+License: GPL-2
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of version 2 of the GNU General
+ Public License as published by the Free Software Foundation.
+ .
+ This program is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied
+ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ PURPOSE.  See the GNU General Public License for more
+ details.
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/GPL-2'.

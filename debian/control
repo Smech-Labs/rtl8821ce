@@ -1,0 +1,38 @@
+Source: rtl8821ce
+Section: non-free-firmware/kernel
+Priority: optional
+Maintainer: Smech <smechlabs@proton.me>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ dh-dkms,
+ dkms,
+ quilt,
+Standards-Version: 4.6.2
+Homepage: https://github.com/Smech-Labs/rtl8821ce
+Vcs-Git: https://github.com/Smech-Labs/rtl8821ce.git
+Vcs-Browser: https://github.com/Smech-Labs/rtl8821ce
+
+Package: rtl8821ce-dkms
+Architecture: all
+Depends:
+ ${misc:Depends},
+ bc,
+ dkms,
+Description: DKMS source for the Realtek RTL8821CE combo Wi-Fi/Bluetooth driver
+ Realtek's out-of-tree driver for the RTL8821CE PCIe combo Wi-Fi/Bluetooth
+ chip, as used in a number of consumer laptops (including HP's 25x G8
+ series). The in-tree rtw88 driver only supports the Wi-Fi half of the
+ chip; this driver additionally brings up Bluetooth.
+ .
+ This package provides the DKMS source for the 8821ce kernel module.
+ Kernel headers matching the running kernel are required to build it.
+ .
+ This is a fork of tomaspinho/rtl8821ce, archived by its upstream
+ maintainer in 2026 with no successor. See debian/copyright for why
+ this package lives in non-free-firmware rather than main: the driver
+ itself is GPL-2 source, but two files compile in opaque Realtek
+ firmware microcode as C byte arrays with no corresponding source form,
+ and that firmware is linked directly into the built module rather than
+ loaded at runtime via request_firmware(), so it cannot be cleanly split
+ into a separate package the way most firmware blobs are.

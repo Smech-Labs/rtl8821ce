@@ -1,0 +1,7 @@
+.debhelper/
+debhelper-build-stamp
+*.debhelper
+*.debhelper.log
+*.substvars
+rtl8821ce-dkms/
+files

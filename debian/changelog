@@ -1,0 +1,6 @@
+rtl8821ce (5.5.2+git20261017.1f8ec40-1) unstable; urgency=medium
+
+  * Initial Debian packaging of the Smech Labs fork; non-free-firmware
+    due to embedded firmware blobs (see debian/copyright).
+
+ -- Smech <smechlabs@proton.me>  Sat, 17 Oct 2026 10:16:48 +0000
